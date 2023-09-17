@@ -1,6 +1,16 @@
+# +
 import numpy as np
 import matplotlib.pyplot as plt
 import sklearn as sk
+import pandas as pd
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
+
+from mlxtend.plotting import plot_confusion_matrix
 
 # +
 # Color scheme
@@ -11,22 +21,45 @@ inf_col = 'blue'
 itl_col = 'gray'
 
 labels = ['CL', 'RIN', 'BS', 'IN', 'ITL']
-# -
 
+# +
 data = np.loadtxt('../data/tabla.txt', skiprows=1)
-
-data.shape
 # data[:,0] subhalo id (z=0)
 # data[:,1] orbit class donde 0 es CL, 1 es RIN, 2 es BS, 3 es IN y 4 es ITL
 # data[:,2] r
 # data[:,3] v
 
+data = data[:,(2,3,1)] # This is just to have the same order as the ROGER 1 data
+
+cl  = data[np.where(data[:,2] == 0)[0]]
+rin = data[np.where(data[:,2] == 1)[0]]
+bs  = data[np.where(data[:,2] == 2)[0]]
+inf = data[np.where(data[:,2] == 3)[0]]
+itl = data[np.where(data[:,2] == 4)[0]]
+
+print('Hay ' + str(len(cl)) + ' cluster galaxies')
+print('Hay ' + str(len(rin)) + ' recent infalling galaxies')
+print('Hay ' + str(len(bs)) + ' backsplash galaxies')
+print('Hay ' + str(len(inf)) + ' infalling galaxies')
+print('Hay ' + str(len(itl)) + ' interlooper galaxies')
+
 # +
-cl  = data[np.where(data[:,1] == 0)[0]]
-rin = data[np.where(data[:,1] == 1)[0]]
-bs  = data[np.where(data[:,1] == 2)[0]]
-inf = data[np.where(data[:,1] == 3)[0]]
-itl = data[np.where(data[:,1] == 4)[0]]
+# Old ROGER 1 data
+data = pd.read_csv('../../ROGER/datos/trainset_roger1.txt', sep = ' ')
+data = np.asarray(data)
+
+data[np.where(data[:,2] == 'CL')[0], 2] = 0
+data[np.where(data[:,2] == 'RIN')[0], 2] = 1
+data[np.where(data[:,2] == 'BS')[0], 2] = 2
+data[np.where(data[:,2] == 'IN')[0], 2] = 3
+data[np.where(data[:,2] == 'ITL')[0], 2] = 4
+data = data.astype('float64')
+
+cl  = data[np.where(data[:,2] == 0)[0]]
+rin = data[np.where(data[:,2] == 1)[0]]
+bs  = data[np.where(data[:,2] == 2)[0]]
+inf = data[np.where(data[:,2] == 3)[0]]
+itl = data[np.where(data[:,2] == 4)[0]]
 
 print('Hay ' + str(len(cl)) + ' cluster galaxies')
 print('Hay ' + str(len(rin)) + ' recent infalling galaxies')
@@ -35,42 +68,13 @@ print('Hay ' + str(len(inf)) + ' infalling galaxies')
 print('Hay ' + str(len(itl)) + ' interlooper galaxies')
 # -
 
-plt.scatter(inf[:,2], inf[:,3], c = inf_col, marker = '<')
-plt.scatter(itl[:,2], itl[:,3], c = itl_col, marker = '>')
-plt.scatter(cl[:,2], cl[:,3], c = cl_col)
-plt.scatter(rin[:,2], rin[:,3], c = rin_col, marker = '+')
-plt.scatter(bs[:,2], bs[:,3], c = bs_col, marker = '*')
+plt.scatter(inf[:,0], inf[:,1], c = inf_col, marker = '<')
+plt.scatter(itl[:,0], itl[:,1], c = itl_col, marker = '>')
+plt.scatter(cl[:,0], cl[:,1], c = cl_col)
+plt.scatter(rin[:,0], rin[:,1], c = rin_col, marker = '+')
+plt.scatter(bs[:,0], bs[:,1], c = bs_col, marker = '*')
 plt.xlabel('r')
 plt.xlabel('v')
-
-# +
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
-
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm
-
-# +
-xtrainset = data[100:,(2,3)]
-ytrainset = data[100:,1]
-
-xtestset = data[:100,(2,3)]
-ytestset = data[:100,1]
-
-
-clf = RandomForestClassifier(max_depth=2, random_state=0)
-clf.fit(xtrainset, ytrainset)
-# -
-
-pred_class = clf.predict(xtestset)
-real_class = ytestset
-
-conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
-
-disp = sk.metrics.ConfusionMatrixDisplay(conf_mat, display_labels= labels)
-disp.plot()
-
-int(1.8)
 
 
 class roger_model():
@@ -93,6 +97,8 @@ class roger_model():
     train_percentage : float
         Float between 0 and 1 representing the percentage of observations that will
         be used for training.
+    comments: str
+        String adding information for the trained model.
 
     Methods
     -------
@@ -113,7 +119,8 @@ class roger_model():
                               RandomForestClassifier(max_depth=2, random_state=0),
                               svm.SVC(probability = True)], 
                  train_percentage = 0.75,
-                labels = ['CL', 'RIN', 'BS', 'IN', 'ITL']):
+                labels = ['CL', 'RIN', 'BS', 'IN', 'ITL'],
+                comments = None):
         self.x_dataset = x_dataset
         self.y_dataset = y_dataset
         self.n_obs = len(x_dataset)
@@ -122,6 +129,10 @@ class roger_model():
         self.train_percentage = train_percentage
         self.train_indices, self.test_indices = self.split() 
         self.labels = labels
+        if comments is not None: self.comments = comments
+
+    def __repr__(self):
+        return self.comments
         
     def split(self):
         """
@@ -193,9 +204,9 @@ class roger_model():
         orbital_prob = self.ml_models[n_model].predict_proba(data)
         return orbital_prob
 
-    def plot_confusion_matrix(self, n_model:int, real_class = None, pred_class = None):
+    def confusion_matrix(self, n_model:int, real_class = None, pred_class = None):
         """
-        Function for plotting the confusion matrix.
+        Function for computing the confusion matrix.
 
         Parameters
         ----------
@@ -216,19 +227,20 @@ class roger_model():
         if pred_class is None: 
             pred_class = self.predict_class(data = self.x_dataset[self.test_indices,:], n_model = n_model)
         conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
-        return sk.metrics.ConfusionMatrixDisplay(conf_mat, display_labels = self.labels)
+        return conf_mat
 
 
-modelo = roger_model(data[:,(2,3)], data[:,1])
-modelo.train()
+comments = """ ROGER model for isolated galaxy clusters with masses bigger than >10^{13} M_{sun}.
+  This model is equivalent to the one presented in XXXX.XXXX and in ROGERWebsite.
+"""
+high_mass_roger1 = roger_model(data[:,(0,1)], data[:,2], comments = comments)
+high_mass_roger1.train()
 
-modelo.ml_models
+high_mass_roger1
 
-modelo.predict_class(xtestset, 2)
+high_mass_roger1.ml_models
 
-disp = modelo.plot_confusion_matrix(2)
-disp.plot()
-
-type(disp)
+conf_mat = high_mass_roger1.plot_confusion_matrix(0)
+plot_confusion_matrix(conf_mat, show_absolute=True, show_normed=True, class_names=labels)
 
 
