@@ -63,9 +63,12 @@ class roger_model():
         self.train_percentage = train_percentage
         self.train_indices, self.test_indices = self.split() 
         self.labels = labels
+        self.trained = False
         if comments is not None: self.comments = comments
 
     def __repr__(self):
+        if self.trained == False: self.comments = self.comments + '\n NOT TRAINED YET'
+        if self.trained == True: self.comments = self.comments + '\n Ready to use'
         return self.comments
         
     def split(self):
@@ -90,6 +93,7 @@ class roger_model():
         
         for i in self.ml_models:
             i.fit(self.x_dataset[self.train_indices,:], self.y_dataset[self.train_indices])
+        self.trained = True
         return None
         
     def predict_class(self, data:np.array, n_model:int) -> np.array:
@@ -138,7 +142,7 @@ class roger_model():
         orbital_prob = self.ml_models[n_model].predict_proba(data)
         return orbital_prob
 
-    def confusion_matrix(self, n_model:int, real_class = None, pred_class = None):
+    def confusion_matrix(self, real_class = None, pred_class = None, n_model:int = 0):
         """
         Function for computing the confusion matrix.
 

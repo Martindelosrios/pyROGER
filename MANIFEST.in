@@ -1,0 +1,8 @@
+include LICENSE
+include README.md
+recursive-include pyROGER *.csv
+
+exclude tox.ini
+exclude pyproject.toml
+recursive-exclude tests*
+# check with pip install check-manifest
