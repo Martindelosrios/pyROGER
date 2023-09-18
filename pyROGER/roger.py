@@ -1,3 +1,16 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import sklearn as sk
+#import pandas as pd
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
+
+from mlxtend.plotting import plot_confusion_matrix
+
 class roger_model():
     """
     Main class of pyROGER. This object contains all the information
