@@ -1,8 +1,8 @@
-from pyROGER.roger import RogerModel
-import pandas as pd
 import numpy as np
+import pandas as pd
 import pkg_resources
 
+from pyROGER.roger import RogerModel
 
 DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
 

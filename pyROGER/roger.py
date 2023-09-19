@@ -1,8 +1,8 @@
 import numpy as np
 import sklearn as sk
+from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm
 
 
 class RogerModel:
