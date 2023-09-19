@@ -16,8 +16,8 @@ setup(
     url=" https://github.com/martindelosrios/pyROGER",
     py_modules=["ez_setup"],  # < - - - - - - - aca van los modulos
     packages=["pyROGER", "dataset"],  # < - -- - - - - aca van los paquetes
-    # packages = find_packages(exclude=['codes_*']),
-    # include_package_data = True, # < - - - - - -- solo si hay datos
+    exclude_package_data={'': ['tests']},
+    include_package_data = True, # < - - - - - -- solo si hay datos
     license="The MIT License",
     install_requires=REQUIREMENTS,
     keywords=["pyROGER", "backsplash", "galaxies"],

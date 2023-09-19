@@ -71,10 +71,10 @@ class RogerModel:
 
     def __repr__(self):
         if self.trained is False:
-            self.comments = self.comments + "\n NOT TRAINED YET"
+            output = self.comments + "\n NOT TRAINED YET"
         if self.trained is True:
-            self.comments = self.comments + "\n Ready to use"
-        return self.comments
+            output = self.comments + "\n Ready to use"
+        return output
 
     def split(self):
         """
