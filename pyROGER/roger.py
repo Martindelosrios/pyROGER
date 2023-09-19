@@ -85,9 +85,9 @@ class RogerModel:
 
         Tuple with the indices of the training and testing sets.
         """
-        ran_indices = np.random.choice(np.arange(self.n_obs), size=self.n_obs)
-        train_indices = ran_indices[: round(self.train_percentage * self.n_obs)]
-        test_indices = ran_indices[round(self.train_percentage * self.n_obs) :]
+        ran_ind = np.random.choice(np.arange(self.n_obs), size=self.n_obs)
+        train_indices = ran_ind[: round(self.train_percentage * self.n_obs)]
+        test_indices = ran_ind[round(self.train_percentage * self.n_obs):]
 
         return train_indices, test_indices
 

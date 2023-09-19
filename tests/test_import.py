@@ -14,4 +14,3 @@ def createmodel():
 def test_createmodel():
     modelo = createmodel()
     assert modelo.comments[:12] == "some comment"
-

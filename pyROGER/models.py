@@ -16,7 +16,9 @@ data[np.where(data[:, 2] == "ITL")[0], 2] = 4
 
 data = data.astype("float64")
 
-comments = """ ROGER model for isolated galaxy clusters with masses bigger than >10^{13} M_{sun}.
-  This model is equivalent to the one presented in XXXX.XXXX and in ROGERWebsite.
+comments = """ ROGER model for isolated galaxy clusters with masses
+bigger than >10^{13} M_{sun}.
+  This model is equivalent to the one presented in XXXX.XXXX and
+  in ROGERWebsite.
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
