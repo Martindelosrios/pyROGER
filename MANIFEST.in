@@ -1,8 +1,9 @@
 include LICENSE
 include README.md
 recursive-include pyROGER *.csv
+recursive-include dataset *.csv
 
 exclude tox.ini
 exclude pyproject.toml
-recursive-exclude tests*
+recursive-exclude tests/*
 # check with pip install check-manifest
