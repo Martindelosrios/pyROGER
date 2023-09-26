@@ -9,3 +9,6 @@ Then, in the pyROGER directory just do
 
 `pip install .`
 
+Soon you will be able to do
+
+`pip install pyROGER`
