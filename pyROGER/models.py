@@ -19,6 +19,6 @@ data = data.astype("float64")
 comments = """ ROGER model for isolated galaxy clusters with masses
 bigger than >10^{13} M_{sun}.
   This model is equivalent to the one presented in XXXX.XXXX and
-  in ROGERWebsite.
+  in the ROGER Website.
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
