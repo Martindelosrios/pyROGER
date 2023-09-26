@@ -12,3 +12,7 @@ Then, in the pyROGER directory just do
 Soon you will be able to do
 
 `pip install pyROGER`
+
+## Tutorial
+
+In [Examples](https://github.com/Martindelosrios/pyROGER/tree/dev/EXAMPLES) you can find some examples to start playing with pyROGER
