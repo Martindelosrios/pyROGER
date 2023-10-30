@@ -49,7 +49,7 @@ class RogerModel:
         x_dataset: np.array,
         y_dataset: np.array,
         ml_models=[
-            KNeighborsClassifier(n_neighbors=3),
+            KNeighborsClassifier(n_neighbors=63),
             RandomForestClassifier(max_depth=2, random_state=0),
             svm.SVC(probability=True),
         ],
@@ -73,7 +73,11 @@ class RogerModel:
         if self.trained is False:
             output = self.comments + "\n NOT TRAINED YET"
         if self.trained is True:
-            output = self.comments + "\n Ready to use"
+            output = self.comments + "\n Ready to use \n"
+            output = output + 'Available models: \n'
+            for i, imod in enumerate(self.ml_models):
+                output = output + '\n n_model:' + str(i) + '   ' + str(imod)
+            #output = output + '\n' + str(output_aux)
         return output
 
     def split(self):
@@ -124,6 +128,7 @@ class RogerModel:
 
         Orbital class.
         """
+        print('Using model:' + '\n' + str(self.ml_models[n_model]) + '  n_model=' + str(n_model))
         orbital_class = self.ml_models[n_model].predict(data)
         return orbital_class
 
@@ -147,6 +152,7 @@ class RogerModel:
 
         Probability for each galaxy of belonging to each orbital class.
         """
+        print('Using model:' + '\n' + str(self.ml_models[n_model]) + '  n_model=' + str(n_model))
         orbital_prob = self.ml_models[n_model].predict_proba(data)
         return orbital_prob
 
