@@ -91,7 +91,7 @@ class RogerModel:
         """
         ran_ind = np.random.choice(np.arange(self.n_obs), size=self.n_obs)
         train_indices = ran_ind[: round(self.train_percentage * self.n_obs)]
-        test_indices = ran_ind[round(self.train_percentage * self.n_obs):]
+        test_indices = ran_ind[round(self.train_percentage * self.n_obs) :]
 
         return train_indices, test_indices
 
@@ -101,6 +101,8 @@ class RogerModel:
         """
 
         for i in self.ml_models:
+            print("Training ...")
+            print(i)
             i.fit(
                 self.x_dataset[self.train_indices, :],
                 self.y_dataset[self.train_indices],
