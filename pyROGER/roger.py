@@ -31,9 +31,9 @@ class RogerModel:
 
     Methods
     -------
-    splt()
+    split()
         Split the data into training and testing set. It returns the indices
-        of both sets.
+        of both sets. It will run when instantiating a RogerModel object.
 
     train()
         Train all the methods contained in ml_models.
@@ -83,6 +83,7 @@ class RogerModel:
     def split(self):
         """
         Function for splitting the dataset into train and test set.
+        It will run when instantiating a RogerModel object.
 
         Returns
         -------
@@ -110,7 +111,7 @@ class RogerModel:
         self.trained = True
         return None
 
-    def predict_class(self, data: np.array, n_model: int) -> np.array:
+    def predict_class(self, data: np.array, n_model: int, verbose = 1) -> np.array:
         """
         Function for predicting the orbital class.
 
@@ -130,7 +131,7 @@ class RogerModel:
 
         Orbital class.
         """
-        print('Using model:' + '\n' + str(self.ml_models[n_model]) + '  n_model=' + str(n_model))
+        if verbose == 1:print('Using model:' + '\n' + str(self.ml_models[n_model]) + '  n_model=' + str(n_model))
         orbital_class = self.ml_models[n_model].predict(data)
         return orbital_class
 
