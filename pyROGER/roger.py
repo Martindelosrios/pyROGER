@@ -53,6 +53,8 @@ class RogerModel:
             RandomForestClassifier(max_depth=2, random_state=0),
             svm.SVC(probability=True),
         ],
+        train_indices = None,
+        test_indices = None,
         train_percentage=0.75,
         labels=["CL", "RIN", "BS", "IN", "ITL"],
         comments=None,
@@ -63,7 +65,11 @@ class RogerModel:
         self.ml_models = ml_models
         self.num_models = len(ml_models)
         self.train_percentage = train_percentage
-        self.train_indices, self.test_indices = self.split()
+        if (train_indices is None) or (test_indices is None):
+            self.train_indices, self.test_indices = self.split()
+        else:
+            self.train_indices = train_indices
+            self.test_indices = test_indices
         self.labels = labels
         self.trained = False
         if comments is not None:
