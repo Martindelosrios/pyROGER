@@ -26,6 +26,8 @@ class RogerModel:
     train_percentage : float
         Float between 0 and 1 representing the percentage of observations that
         will be used for training.
+    split_seed: Int.
+        Random seed used for randomly splitting the data. Default = None
     comments: str
         String adding information for the trained model.
 
@@ -57,6 +59,7 @@ class RogerModel:
         test_indices = None,
         train_percentage=0.75,
         labels=["CL", "RIN", "BS", "IN", "ITL"],
+        split_seed = None,
         comments=None,
     ):
         self.x_dataset = x_dataset
@@ -65,8 +68,9 @@ class RogerModel:
         self.ml_models = ml_models
         self.num_models = len(ml_models)
         self.train_percentage = train_percentage
+        self.split_seed = split_seed
         if (train_indices is None) or (test_indices is None):
-            self.train_indices, self.test_indices = self.split()
+            self.train_indices, self.test_indices = self.split(self.split_seed)
         else:
             self.train_indices = train_indices
             self.test_indices = test_indices
@@ -86,7 +90,7 @@ class RogerModel:
             #output = output + '\n' + str(output_aux)
         return output
 
-    def split(self):
+    def split(self, split_seed):
         """
         Function for splitting the dataset into train and test set.
         It will run when instantiating a RogerModel object.
@@ -96,7 +100,9 @@ class RogerModel:
 
         Tuple with the indices of the training and testing sets.
         """
-        ran_ind = np.random.choice(np.arange(self.n_obs), size=self.n_obs)
+
+        if split_seed is not None: np.random.seed(split_seed)
+        ran_ind = np.random.choice(np.arange(self.n_obs), size=self.n_obs, replace = False)
         train_indices = ran_ind[: round(self.train_percentage * self.n_obs)]
         test_indices = ran_ind[round(self.train_percentage * self.n_obs) :]
 
