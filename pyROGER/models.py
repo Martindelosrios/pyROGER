@@ -9,7 +9,7 @@ DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
 
 def list_saved_models():
     saved_models = os.listdir(DATA_PATH)
-    saved_model_names = [name for name in saved_models if name.endswith('.png')]
+    saved_model_names = [name for name in saved_models if name.endswith('.joblib')]
     print(saved_model_names)
      
     return None
