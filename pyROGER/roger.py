@@ -232,6 +232,8 @@ class RogerModel:
                 data=self.x_dataset[self.test_indices, :], n_model=n_model
             )
             conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
+        else:    
+            conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
         
         if norm: conf_mat = conf_mat / np.sum(conf_mat, axis = 1, keepdims=True)
         return conf_mat, pred_class
