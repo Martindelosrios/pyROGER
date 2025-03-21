@@ -117,11 +117,11 @@ class RogerModel:
         for i, model in enumerate(self.ml_models):
             if path_to_saved_model[i] is not None:
                 print("Loading model from:" + path_to_saved_model[i])
-                model = load(path_to_saved_model[i])
+                self.ml_models[i] = load(path_to_saved_model[i])
             else:
                 print("Training ...")
                 print(model)
-                model.fit(
+                self.ml_models[i].fit(
                     self.x_dataset[self.train_indices, :],
                     self.y_dataset[self.train_indices],
                 )
