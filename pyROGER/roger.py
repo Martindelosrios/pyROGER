@@ -3,7 +3,7 @@ import sklearn as sk
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from joblib import load
+from joblib import load, dump
 
 
 class RogerModel:
@@ -109,14 +109,14 @@ class RogerModel:
 
         return train_indices, test_indices
 
-    def train(self, path_to_saved_model = None):
+    def train(self, path_to_saved_model=None, path_to_save=None):
         """
         Function for training the machine learning methods.
         """
 
         for i, model in enumerate(self.ml_models):
             if path_to_saved_model[i] is not None:
-                print("Loading model from:" + path_to_saved_model[i])
+                print("Loading model from: " + path_to_saved_model[i])
                 self.ml_models[i] = load(path_to_saved_model[i])
             else:
                 print("Training ...")
@@ -125,6 +125,9 @@ class RogerModel:
                     self.x_dataset[self.train_indices, :],
                     self.y_dataset[self.train_indices],
                 )
+                if path_to_save[i] is not None:
+                    dump(self.ml_models[i], path_to_save[i])
+                    print("Model saved in: " + path_to_save[i])
         self.trained = True
         return None
 

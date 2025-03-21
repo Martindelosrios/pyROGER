@@ -3,7 +3,7 @@ from setuptools import setup
 with open("README.md", "r") as fp:
     LONG_DESCRIPTION = fp.read()
 
-REQUIREMENTS = ["numpy", "matplotlib", "scikit-learn", "mlxtend", "pandas"]
+REQUIREMENTS = ["numpy", "matplotlib", "scikit-learn", "mlxtend", "pandas", "joblib"]
 
 setup(
     name="pyROGER",
