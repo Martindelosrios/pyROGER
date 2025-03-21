@@ -114,6 +114,8 @@ class RogerModel:
         Function for training the machine learning methods.
         """
 
+        if path_to_saved_model is None: path_to_saved_model = len(self.ml_models) * [None]
+        if path_to_save is None: path_to_save = len(self.ml_models) * [None]
         for i, model in enumerate(self.ml_models):
             if path_to_saved_model[i] is not None:
                 print("Loading model from: " + path_to_saved_model[i])
