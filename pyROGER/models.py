@@ -8,11 +8,7 @@ from pyROGER.roger import RogerModel
 DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
 
 def list_saved_models():
-    #saved_models = os.listdir(DATA_PATH)
-    #saved_model_names = [name for name in saved_models if name.endswith('.joblib')]
     saved_model_names = glob.glob(DATA_PATH + '/*.joblib')
-    print(saved_model_names)
-     
     return saved_model_names
 
 data = pd.read_csv(DATA_PATH + "/highMass_trainset_roger1.csv", sep=" ")
