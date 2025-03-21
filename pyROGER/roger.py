@@ -223,18 +223,14 @@ class RogerModel:
             aux = aux[np.arange(len(pred_class)), pred_class]
             pred_class[np.where(aux > 0)[0]] = pred_class[np.where(aux > 0)[0]] + 1
             pred_class[np.where(aux < 0)[0]] = -1
-            
-            ind = np.where(pred_class != -1)[0]
-            aux = pred_class[ind]
-            conf_mat = sk.metrics.confusion_matrix(real_class[ind], aux)
-
-        if pred_class is None:
+        elif pred_class is None:
             pred_class = self.predict_class(
                 data=self.x_dataset[self.test_indices, :], n_model=n_model
             )
-            conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
-        else:    
-            conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
         
+        ind = np.where(pred_class != -1)[0]
+        conf_mat = sk.metrics.confusion_matrix(real_class[ind], pred_class[ind])
+
         if norm: conf_mat = conf_mat / np.sum(conf_mat, axis = 1, keepdims=True)
-        return conf_mat, aux
+
+        return conf_mat, pred_class
