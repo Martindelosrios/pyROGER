@@ -1,10 +1,18 @@
 import numpy as np
 import pandas as pd
 import pkg_resources
+    import os
 
 from pyROGER.roger import RogerModel
 
 DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
+
+def list_saved_models(DATA_PATH):
+    saved_models = os.listdir(DATA_PATH)
+    saved_model_names = [name for name in saved_models if name.endswith('.png')]
+    print(saved_model_names)
+     
+    return None
 
 data = pd.read_csv(DATA_PATH + "/highMass_trainset_roger1.csv", sep=" ")
 data = np.asarray(data)
