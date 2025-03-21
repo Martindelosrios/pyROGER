@@ -23,6 +23,6 @@ bigger than >10^{13} M_{sun}.
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
 
-HighMassRoger1.train(path_to_saved_models = [DATA_PATH + '/HighMassRoger1_KNN.joblib',
-                                             DATA_PATH + '/HighMassRoger1_RF.joblib',
-                                             DATA_PATH + '/HighMassRoger1_SVM.joblib'])
+HighMassRoger1.train(path_to_saved_model = [DATA_PATH + '/HighMassRoger1_KNN.joblib',
+                                            DATA_PATH + '/HighMassRoger1_RF.joblib',
+                                            DATA_PATH + '/HighMassRoger1_SVM.joblib'])
