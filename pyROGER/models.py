@@ -22,7 +22,3 @@ bigger than >10^{13} M_{sun}.
   in https://mdelosrios.shinyapps.io/roger_shiny/.
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
-
-HighMassRoger1.train(path_to_saved_model = [DATA_PATH + '/HighMassRoger1_KNN.joblib',
-                                            DATA_PATH + '/HighMassRoger1_RF.joblib',
-                                            DATA_PATH + '/HighMassRoger1_SVM.joblib'])
