@@ -181,7 +181,9 @@ class RogerModel:
         orbital_prob = self.ml_models[n_model].predict_proba(data)
         return orbital_prob
 
-    def confusion_matrix(self, real_class=None, pred_class=None, n_model: int = 0):
+    def confusion_matrix(self, real_class=None, pred_class=None, pred_prob=None,
+                        thresholds = np.array([0.0, 0.0, 0.0, 0.0, 0.0]),
+                        norm = False, n_model: int=0):
         """
         Function for computing the confusion matrix.
 
@@ -198,12 +200,38 @@ class RogerModel:
         pred_class:np.array
             Numpy array containing the predicted classes. If nothing is pass,
             the function will use the classes predicted for the testset.
+        
+        pred_prob:np.array
+            Numpy array containing the predicted probabilities. If nothing is pass,
+            the function will use the pred_class argument.
+
+        thresholds: np.array
+            Numpy array containing the thresholds that will be use for classifing the 
+            galaxies. Default = np.array([0.0, 0.0, 0.0, 0.0, 0.0])
+
+        norm: Bool.
+            Boolean indicating if the return confusion matrix should be normalized
+            or not. Default = False
         """
         if real_class is None:
             real_class = self.y_dataset[self.test_indices]
+
+        if pred_prob is not None:
+            pred_class = np.argmax(pred_prob, axis = 1)
+            aux = pred_prob - thresholds
+            
+            aux = aux[np.arange(len(pred_class)), pred_class]
+            pred_class[np.where(aux > 0)[0]] = pred_class[np.where(aux > 0)[0]] + 1
+            pred_class[np.where(aux < 0)[0]] = -1
+            
+            ind = np.where(pred_class != -1)[0]
+            conf_mat = sk.metrics.confusion_matrix(real_class[ind], pred_class[ind])
+
         if pred_class is None:
             pred_class = self.predict_class(
                 data=self.x_dataset[self.test_indices, :], n_model=n_model
             )
-        conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
-        return conf_mat
+            conf_mat = sk.metrics.confusion_matrix(real_class, pred_class)
+        
+        if norm: conf_mat = conf_mat / np.sum(conf_mat, axis = 1, keepdims=True)
+        return conf_mat, pred_class
