@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import pkg_resources
-    import os
+import os
 
 from pyROGER.roger import RogerModel
 
