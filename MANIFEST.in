@@ -2,6 +2,7 @@ include LICENSE
 include README.md
 recursive-include pyROGER *.csv
 recursive-include dataset *.csv
+recursive-include dataset *.joblib
 
 exclude tox.ini
 exclude pyproject.toml
