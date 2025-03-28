@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import pkg_resources
 import glob
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 from pyROGER.roger import RogerModel
 
