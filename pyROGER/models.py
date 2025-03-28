@@ -38,4 +38,4 @@ bigger than >10^{13} M_{sun}.
   The saved models located in the datasets are:
    * roger2_KNN.joblib
 """
-Roger2 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
+Roger2 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments,  ml_models = [KNeighborsClassifier(n_neighbors=63)])
