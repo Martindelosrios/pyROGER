@@ -31,3 +31,11 @@ bigger than >10^{13} M_{sun}.
    * HighMassRoger1_KNN.joblib
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
+
+
+comments = """ ROGER2 model for isolated galaxy clusters with masses
+bigger than >10^{13} M_{sun}.
+  The saved models located in the datasets are:
+   * roger2_KNN.joblib
+"""
+Roger2 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
