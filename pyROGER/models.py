@@ -31,6 +31,14 @@ bigger than >10^{13} M_{sun}.
    * HighMassRoger1_RF.joblib
    * HighMassRoger1_SVM.joblib
    * HighMassRoger1_KNN.joblib
+
+  The input must be a np.array with shape (Ngal, 2) where,
+  the first column must be the cluster-centric distance normalized to R200,
+  and the second must be the relative velocity normalized to the cluster
+  velocity dispersion, i.e:
+
+    [:,0] = R / R200
+    [:,1] = |\Delta V| / sigma
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
 
@@ -39,5 +47,15 @@ comments = """ ROGER2 model for isolated galaxy clusters with masses
 bigger than >10^{13} M_{sun}.
   The saved models located in the datasets are:
    * roger2_KNN.joblib
+
+  The input must be a np.array with shape (Ngal, 3) where,
+  the first column must be the log10 of the cluster mass,
+  the second column must be the cluster-centric distance normalized to R200,
+  and the third must be the relative velocity normalized to the cluster
+  velocity dispersion, i.e:
+
+    [:,0] = log10(M [M_{sun}])
+    [:,1] = R / R200
+    [:,2] = |\Delta V| / sigma
 """
 Roger2 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments,  ml_models = [KNeighborsClassifier(n_neighbors=63)])
