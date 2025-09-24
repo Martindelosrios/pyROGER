@@ -7,8 +7,8 @@ REQUIREMENTS = ["numpy", "matplotlib", "scikit-learn", "mlxtend", "pandas", "job
 
 setup(
     name="pyROGER",
-    version="0.1",
-    description="Implementation of phase function for asteroids in Python",
+    version="2.0",
+    description="Implementation of ROGER in Python",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     author="Martin de los Rios",
@@ -29,6 +29,10 @@ setup(
         " Operating System :: OS Independent",
         " Programming Language :: Python",
         " Programming Language :: Python :: 3.8",
+        " Programming Language :: Python :: 3.9",
+        " Programming Language :: Python :: 3.10",
+        " Programming Language :: Python :: 3.11",
+        " Programming Language :: Python :: 3.12",
         " Programming Language :: Python :: Implementation :: CPython",
         " Topic :: Scientific/Engineering",
     ],
