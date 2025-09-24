@@ -39,6 +39,13 @@ bigger than >10^{13} M_{sun}.
 
     [:,0] = R / R200
     [:,1] = |\Delta V| / sigma
+
+  The output is a np.array with shape (Ngal, 5)
+  [:,0] = P_cl: Probability of being a cluster galaxy.
+  [:,1] = P_rin: Probability of being a backsplash galaxy.
+  [:,2] = P_bs: Probability of being a recent infaller galaxy.
+  [:,3] = P_in: Probability of being an infalling galaxy.
+  [:,4] = P_itl: Probability of being a iterloper galaxy.
 """
 HighMassRoger1 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments)
 
@@ -57,5 +64,12 @@ bigger than >10^{13} M_{sun}.
     [:,0] = log10(M [M_{sun}])
     [:,1] = R / R200
     [:,2] = |\Delta V| / sigma
+
+  The output is a np.array with shape (Ngal, 5)
+  [:,0] = P_cl: Probability of being a cluster galaxy.
+  [:,1] = P_bs: Probability of being a backsplash galaxy.
+  [:,2] = P_rin: Probability of being a recent infaller galaxy.
+  [:,3] = P_in: Probability of being an infalling galaxy.
+  [:,4] = P_itl: Probability of being a iterloper galaxy.
 """
 Roger2 = RogerModel(data[:, (0, 1)], data[:, 2], comments=comments,  ml_models = [KNeighborsClassifier(n_neighbors=63)])
