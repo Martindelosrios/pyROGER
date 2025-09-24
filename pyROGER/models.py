@@ -1,13 +1,18 @@
 import numpy as np
 import pandas as pd
-import pkg_resources
+#import pkg_resources
 import glob
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 from pyROGER.roger import RogerModel
 
-DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
+#DATA_PATH = pkg_resources.resource_filename("pyROGER", "../dataset/")
+
+import importlib.resources
+
+with importlib.resources.path("pyROGER", "dataset") as p:
+    DATA_PATH = str(p)
 
 def list_saved_models():
     saved_model_names = glob.glob(DATA_PATH + '/*.joblib')
