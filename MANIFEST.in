@@ -1,8 +1,6 @@
 include LICENSE
 include README.md
 recursive-include pyROGER *.csv
-recursive-include dataset *.csv
-recursive-include dataset *.joblib
 recursive-include pyROGER/dataset *.csv
 recursive-include pyROGER/dataset *.joblib
 

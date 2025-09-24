@@ -15,7 +15,7 @@ setup(
     author_email=" martindelosrios13@gmail.com ",
     url=" https://github.com/martindelosrios/pyROGER",
     py_modules=["ez_setup"],  # < - - - - - - - aca van los modulos
-    packages=["pyROGER", "dataset", "pyROGER/dataset"],  # < - -- - - - - aca van los paquetes
+    packages=["pyROGER", "pyROGER/dataset"],  # < - -- - - - - aca van los paquetes
     exclude_package_data={"": ["tests"]},
     include_package_data=True,  # < - - - - - -- solo si hay datos
     license="The MIT License",
