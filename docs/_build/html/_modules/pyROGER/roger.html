@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyROGER.roger &mdash; pyROGER  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyROGER
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pyROGER.html">pyROGER package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyROGER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyROGER.roger</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyROGER.roger</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">svm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">load</span><span class="p">,</span> <span class="n">dump</span>
+
+
+<div class="viewcode-block" id="RogerModel">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RogerModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main class of pyROGER. This object contains all the information</span>
+<span class="sd">    of the classification.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_dataset : np.array</span>
+<span class="sd">        Numpy array containing the features used for the classification.</span>
+<span class="sd">        Usually these will be the relative velocity normalized to the velocity</span>
+<span class="sd">        dispersion and the normalized radii.</span>
+<span class="sd">    y_dataset : np.array</span>
+<span class="sd">        Numpy array containing the real classes of the galaxies. Usually these</span>
+<span class="sd">        are cluster, recent infalling, backsplash, infalling and interloper</span>
+<span class="sd">        galaxies.</span>
+<span class="sd">    ml_models : list</span>
+<span class="sd">        List with the machine learning methods that will be used. The default</span>
+<span class="sd">        methods are KNN, random forest and SVM.</span>
+<span class="sd">    train_percentage : float</span>
+<span class="sd">        Float between 0 and 1 representing the percentage of observations that</span>
+<span class="sd">        will be used for training.</span>
+<span class="sd">    split_seed: Int.</span>
+<span class="sd">        Random seed used for randomly splitting the data. Default = None</span>
+<span class="sd">    comments: str</span>
+<span class="sd">        String adding information for the trained model.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    split()</span>
+<span class="sd">        Split the data into training and testing set. It returns the indices</span>
+<span class="sd">        of both sets. It will run when instantiating a RogerModel object.</span>
+
+<span class="sd">    train()</span>
+<span class="sd">        Train all the methods contained in ml_models.</span>
+
+<span class="sd">    predict(data, n_model)</span>
+<span class="sd">        Predict the class of the observation contained in data using the model</span>
+<span class="sd">        number n_model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x_dataset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">y_dataset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">ml_models</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">63</span><span class="p">),</span>
+            <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">train_indices</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">test_indices</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">train_percentage</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CL&quot;</span><span class="p">,</span> <span class="s2">&quot;RIN&quot;</span><span class="p">,</span> <span class="s2">&quot;BS&quot;</span><span class="p">,</span> <span class="s2">&quot;IN&quot;</span><span class="p">,</span> <span class="s2">&quot;ITL&quot;</span><span class="p">],</span>
+        <span class="n">split_seed</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_dataset</span> <span class="o">=</span> <span class="n">x_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_dataset</span> <span class="o">=</span> <span class="n">y_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_obs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_dataset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span> <span class="o">=</span> <span class="n">ml_models</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ml_models</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_percentage</span> <span class="o">=</span> <span class="n">train_percentage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split_seed</span> <span class="o">=</span> <span class="n">split_seed</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">train_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">test_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_seed</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_indices</span> <span class="o">=</span> <span class="n">train_indices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_indices</span> <span class="o">=</span> <span class="n">test_indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trained</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">comments</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trained</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> NOT TRAINED YET&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trained</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Ready to use </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">output</span> <span class="o">+</span> <span class="s1">&#39;Available models: </span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">imod</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">):</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">output</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> n_model:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;   &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">imod</span><span class="p">)</span>
+            <span class="c1">#output = output + &#39;\n&#39; + str(output_aux)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+<div class="viewcode-block" id="RogerModel.split">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel.split">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split_seed</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for splitting the dataset into train and test set.</span>
+<span class="sd">        It will run when instantiating a RogerModel object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Tuple with the indices of the training and testing sets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">split_seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">split_seed</span><span class="p">)</span>
+        <span class="n">ran_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_obs</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_obs</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">train_indices</span> <span class="o">=</span> <span class="n">ran_ind</span><span class="p">[:</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_percentage</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_obs</span><span class="p">)]</span>
+        <span class="n">test_indices</span> <span class="o">=</span> <span class="n">ran_ind</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_percentage</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_obs</span><span class="p">)</span> <span class="p">:]</span>
+
+        <span class="k">return</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span></div>
+
+
+<div class="viewcode-block" id="RogerModel.train">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel.train">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_saved_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path_to_save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for training the machine learning methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">path_to_saved_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">path_to_saved_model</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">path_to_save</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">path_to_save</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">path_to_saved_model</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading model from: &quot;</span> <span class="o">+</span> <span class="n">path_to_saved_model</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">path_to_saved_model</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training ...&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">x_dataset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">train_indices</span><span class="p">,</span> <span class="p">:],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">y_dataset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">train_indices</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">path_to_save</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">path_to_save</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model saved in: &quot;</span> <span class="o">+</span> <span class="n">path_to_save</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trained</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="RogerModel.predict_class">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel.predict_class">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">n_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for predicting the orbital class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        data:np.array</span>
+<span class="sd">            Numpy array containing the features that will be used for</span>
+<span class="sd">            the classification.</span>
+
+<span class="sd">        n_model:int</span>
+<span class="sd">            Number of the machine learning methods that will be used</span>
+<span class="sd">            for the classification.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Orbital class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using model:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">n_model</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;  n_model=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_model</span><span class="p">))</span>
+        <span class="n">orbital_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">n_model</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">orbital_class</span></div>
+
+
+<div class="viewcode-block" id="RogerModel.predict_prob">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel.predict_prob">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">n_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for predicting the orbital class probability.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        data:np.array</span>
+<span class="sd">            Numpy array containing the features that will be used for</span>
+<span class="sd">            the classification.</span>
+
+<span class="sd">        n_model:int</span>
+<span class="sd">            Number of the machine learning methods that will be used</span>
+<span class="sd">            for the classification.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Probability for each galaxy of belonging to each orbital class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using model:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">n_model</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;  n_model=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_model</span><span class="p">))</span>
+        <span class="n">orbital_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ml_models</span><span class="p">[</span><span class="n">n_model</span><span class="p">]</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">orbital_prob</span></div>
+
+
+<div class="viewcode-block" id="RogerModel.confusion_matrix">
+<a class="viewcode-back" href="../../pyROGER.html#pyROGER.roger.RogerModel.confusion_matrix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pred_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pred_prob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+                        <span class="n">norm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_model</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function for computing the confusion matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_model:int</span>
+<span class="sd">            Number of the machine learning methods that will be used</span>
+<span class="sd">            for the classification.</span>
+
+<span class="sd">        real_class:np.array</span>
+<span class="sd">            Numpy array containing the real classes. If nothing is pass, the</span>
+<span class="sd">            function will use the testset classes.</span>
+
+<span class="sd">        pred_class:np.array</span>
+<span class="sd">            Numpy array containing the predicted classes. If nothing is pass,</span>
+<span class="sd">            the function will use the classes predicted for the testset.</span>
+<span class="sd">        </span>
+<span class="sd">        pred_prob:np.array</span>
+<span class="sd">            Numpy array containing the predicted probabilities. If nothing is pass,</span>
+<span class="sd">            the function will use the pred_class argument.</span>
+
+<span class="sd">        thresholds: np.array</span>
+<span class="sd">            Numpy array containing the thresholds that will be use for classifing the </span>
+<span class="sd">            galaxies. Default = np.array([0.0, 0.0, 0.0, 0.0, 0.0])</span>
+
+<span class="sd">        norm: Bool.</span>
+<span class="sd">            Boolean indicating if the return confusion matrix should be normalized</span>
+<span class="sd">            or not. Default = False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">real_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">real_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dataset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">test_indices</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">pred_prob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pred_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">pred_prob</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">aux</span> <span class="o">=</span> <span class="n">pred_prob</span> <span class="o">-</span> <span class="n">thresholds</span>
+            
+            <span class="n">aux</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pred_class</span><span class="p">)),</span> <span class="n">pred_class</span><span class="p">]</span>
+            <span class="n">pred_class</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">aux</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pred_class</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">aux</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">pred_class</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">aux</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">pred_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pred_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_class</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dataset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">test_indices</span><span class="p">,</span> <span class="p">:],</span> <span class="n">n_model</span><span class="o">=</span><span class="n">n_model</span>
+            <span class="p">)</span>
+        
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pred_class</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">conf_mat</span> <span class="o">=</span> <span class="n">sk</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">real_class</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">pred_class</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">norm</span><span class="p">:</span> <span class="n">conf_mat</span> <span class="o">=</span> <span class="n">conf_mat</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">conf_mat</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">conf_mat</span><span class="p">,</span> <span class="n">pred_class</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin de los Rios.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

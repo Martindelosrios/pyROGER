@@ -1,0 +1,10 @@
+pyROGER.dataset package
+=======================
+
+Module contents
+---------------
+
+.. automodule:: pyROGER.dataset
+   :members:
+   :show-inheritance:
+   :undoc-members:

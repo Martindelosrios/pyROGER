@@ -12,6 +12,9 @@ with importlib.resources.path("pyROGER", "dataset") as p:
     DATA_PATH = str(p)
 
 def list_saved_models():
+    '''
+    Function for listing the available models.
+    '''
     saved_model_names = glob.glob(DATA_PATH + '/*.joblib')
     return saved_model_names
 
