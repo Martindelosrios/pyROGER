@@ -1,5 +1,5 @@
 # pyROGER pacakage
-[![Documentation Status](https://readthedocs.org/projects/pyroger/badge/?version=latest)](https://pyroger.readthedocs.io/es/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/pyroger/badge/?version=latest)](https://pyroger.readthedocs.io/en/latest/)
 ## Installation
 
 As this is a dev version for installing pyROGER package you have to download the source doing:
