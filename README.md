@@ -23,12 +23,10 @@ And then, in the pyROGER directory just doing:
 For running pyroger you will need:
 
  * numpy
- * scikit-learn*
+ * scikit-learn (If you want to use the pre-loaded models, you will need to install scikit-learn==1.3.0)
  * mlxtend
  * pandas
  * joblib
-
-* If you want to use the pre-loaded models, you will need to install scikit-learn==1.3.0
 
 ## Tutorials
 
