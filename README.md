@@ -97,6 +97,10 @@ archivePrefix = {arXiv},
 }
 ```
 
-<span style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; border-radius: 5px; display: inline-block;">
-A lot of people is already using pyROGER, you can check the [Papers here!](https://scixplorer.org/abs/2021MNRAS.500.1784D/citations?p=1)
-</span>
+<table>
+<tr>
+<td style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 5px;">
+A lot of people is already using pyROGER, you can check their papers here!(https://scixplorer.org/abs/2021MNRAS.500.1784D/citations?p=1)
+</td>
+</tr>
+</table>
