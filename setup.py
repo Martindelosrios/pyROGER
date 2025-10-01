@@ -7,7 +7,7 @@ REQUIREMENTS = ["numpy", "matplotlib", "scikit-learn", "mlxtend", "pandas", "job
 
 setup(
     name="pyROGER",
-    version="2.0",
+    version="2.0.1",
     description="Implementation of ROGER in Python",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",

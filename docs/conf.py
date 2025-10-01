@@ -18,6 +18,7 @@ author = 'Martin de los Rios'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    "myst_parser",
     "sphinx.ext.autodoc",       # Documentar desde docstrings
     "sphinx.ext.napoleon",      # Soporte Google/Numpy style
     "sphinx.ext.viewcode",      # Links al código fuente
