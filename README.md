@@ -76,6 +76,8 @@ In [Examples](https://github.com/Martindelosrios/pyROGER/tree/dev/EXAMPLES) you 
 ## Citation
 
 If you use pyROGER in your paper please cite [https://arxiv.org/abs/2010.11959](https://arxiv.org/abs/2010.11959) 
+
+```latex 
 @ARTICLE{2021MNRAS.500.1784D,
        author = {{de los Rios}, Mart{\'\i}n and {Mart{\'\i}nez}, H{\'e}ctor J. and {Coenda}, Valeria and {Muriel}, Hern{\'a}n and {Ruiz}, Andr{\'e}s N. and {Vega-Mart{\'\i}nez}, Cristian A. and {Cora}, Sof{\'\i}a A.},
         title = "{ROGER: Reconstructing orbits of galaxies in extreme regions using machine learning techniques}",
@@ -93,5 +95,6 @@ archivePrefix = {arXiv},
        adsurl = {https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.1784D},
       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
+```
 
 
