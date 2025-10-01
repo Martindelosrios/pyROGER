@@ -30,11 +30,10 @@ For running pyroger you will need:
 
 ## Quick Start
 
-´´´python
+```python 
 from pyROGER import roger
 from pyROGER import models
-´´´
-
+```
 
 ## Tutorials
 
