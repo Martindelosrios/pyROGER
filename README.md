@@ -97,4 +97,6 @@ archivePrefix = {arXiv},
 }
 ```
 
-
+```diff 
+A lot of people is already using pyROGER, you can check the [Papers here!](https://scixplorer.org/abs/2021MNRAS.500.1784D/citations?p=1)
+```
