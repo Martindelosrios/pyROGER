@@ -97,6 +97,6 @@ archivePrefix = {arXiv},
 }
 ```
 
-```diff 
+<span style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; border-radius: 5px; display: inline-block;">
 A lot of people is already using pyROGER, you can check the [Papers here!](https://scixplorer.org/abs/2021MNRAS.500.1784D/citations?p=1)
-```
+</span>
