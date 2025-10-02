@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyROGER package &mdash; pyROGER  documentation</title>
+  <title>pyROGER.roger &mdash; pyROGER  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -43,15 +43,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">pyROGER package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pyroger-roger">pyROGER.roger</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyROGER.models">pyROGER.models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyROGER.models.list_saved_models"><code class="docutils literal notranslate"><span class="pre">list_saved_models()</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyROGER.roger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-pyROGER.models">pyROGER.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pyROGER.models.list_saved_models"><code class="docutils literal notranslate"><span class="pre">list_saved_models()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="#datasets">Datasets</a></li>
 </ul>
 
         </div>
@@ -68,7 +65,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">pyROGER package</li>
+      <li class="breadcrumb-item active">pyROGER.roger</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/pyROGER.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,10 +75,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pyroger-package">
-<h1>pyROGER package<a class="headerlink" href="#pyroger-package" title="Link to this heading"></a></h1>
-<section id="pyroger-roger">
-<h2>pyROGER.roger<a class="headerlink" href="#pyroger-roger" title="Link to this heading"></a></h2>
+  <section id="pyroger-roger">
+<h1>pyROGER.roger<a class="headerlink" href="#pyroger-roger" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyROGER.roger.</span></span><span class="sig-name descname"><span class="pre">RogerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[KNeighborsClassifier(n_neighbors=63),</span> <span class="pre">RandomForestClassifier(max_depth=2,</span> <span class="pre">random_state=0),</span> <span class="pre">SVC(probability=True)]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CL',</span> <span class="pre">'RIN',</span> <span class="pre">'BS',</span> <span class="pre">'IN',</span> <span class="pre">'ITL']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -282,7 +277,7 @@ It will run when instantiating a RogerModel object.</p>
 
 </section>
 <section id="module-pyROGER.models">
-<span id="pyroger-models"></span><h2>pyROGER.models<a class="headerlink" href="#module-pyROGER.models" title="Link to this heading"></a></h2>
+<span id="pyroger-models"></span><h1>pyROGER.models<a class="headerlink" href="#module-pyROGER.models" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyROGER.models.list_saved_models">
 <span class="sig-prename descclassname"><span class="pre">pyROGER.models.</span></span><span class="sig-name descname"><span class="pre">list_saved_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/models.html#list_saved_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.models.list_saved_models" title="Link to this definition"></a></dt>
@@ -291,8 +286,7 @@ It will run when instantiating a RogerModel object.</p>
 
 </section>
 <section id="datasets">
-<h2>Datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h2>
-</section>
+<h1>Datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h1>
 </section>
 
 

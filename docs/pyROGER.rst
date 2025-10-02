@@ -1,6 +1,3 @@
-pyROGER package
-===============
-
 pyROGER.roger
 --------------------
 

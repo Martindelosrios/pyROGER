@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyROGER package" href="pyROGER.html" /> 
+    <link rel="next" title="pyROGER.roger" href="pyROGER.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,7 +43,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pyROGER.html">pyROGER package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html">pyROGER.roger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html#module-pyROGER.models">pyROGER.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html#datasets">Datasets</a></li>
 </ul>
 
         </div>
@@ -97,6 +99,36 @@ of galaxies around clusters.</p>
 </section>
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p>First you can import the roger library and the roger models…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyROGER</span><span class="w"> </span><span class="kn">import</span> <span class="n">roger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyROGER</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
+
+</pre></div>
+</div>
+<p>Then you can check the available models…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">models</span><span class="o">.</span><span class="n">list_saved_models</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For uploading a model just give the path to the saved .joblib file</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">models</span><span class="o">.</span><span class="n">HighMassRoger1</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">path_to_saved_model</span><span class="o">=</span> <span class="p">[</span><span class="n">PATH_TO_MODEL</span><span class="o">/</span><span class="n">HighMassRoger1_KNN</span><span class="o">.</span><span class="n">joblib</span><span class="s1">&#39;,</span>
+                                                  <span class="n">PATH_TO_MODEL</span><span class="o">/</span><span class="n">HighMassRoger1_RF</span><span class="o">.</span><span class="n">joblib</span><span class="s1">&#39;,</span>
+                                                  <span class="n">PATH_TO_MODEL</span><span class="o">/</span><span class="n">HighMassRoger1_SVM</span><span class="o">.</span><span class="n">joblib</span><span class="s1">&#39;])</span>
+</pre></div>
+</div>
+<p>To check that the model is ready to be used you can do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">models</span><span class="o">.</span><span class="n">HighMassRoger1</span>
+</pre></div>
+</div>
+<p>and you should see ‘Ready to use’ after some comments about the model.</p>
+<p>Finally, for using the model you just do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For predicting the classes:</span>
+<span class="n">pred_class</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">HighMassRoger1</span><span class="o">.</span><span class="n">predict_class</span><span class="p">(</span><span class="n">data</span><span class="p">[:,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># For predicting probabilities:</span>
+<span class="n">pred_prob</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">HighMassRoger1</span><span class="o">.</span><span class="n">predict_prob</span><span class="p">(</span><span class="n">data</span><span class="p">[:,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="mi">0</span><span class="p">)</span>
+
+</pre></div>
+</div>
 </section>
 <section id="tutorials">
 <h2>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h2>
@@ -105,19 +137,40 @@ of galaxies around clusters.</p>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
 <p>If you use pyROGER in your paper please cite <a class="reference external" href="https://arxiv.org/abs/2010.11959">https://arxiv.org/abs/2010.11959</a></p>
-</section>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>@ARTICLE<span class="nb">{</span>2021MNRAS.500.1784D,
+       author = <span class="nb">{{</span>de los Rios<span class="nb">}</span>, Mart<span class="nb">{</span><span class="k">\&#39;\i</span><span class="nb">}</span>n and <span class="nb">{</span>Mart<span class="nb">{</span><span class="k">\&#39;\i</span><span class="nb">}</span>nez<span class="nb">}</span>, H<span class="nb">{</span><span class="k">\&#39;</span>e<span class="nb">}</span>ctor J. and <span class="nb">{</span>Coenda<span class="nb">}</span>, Valeria and <span class="nb">{</span>Muriel<span class="nb">}</span>, Hern<span class="nb">{</span><span class="k">\&#39;</span>a<span class="nb">}</span>n and <span class="nb">{</span>Ruiz<span class="nb">}</span>, Andr<span class="nb">{</span><span class="k">\&#39;</span>e<span class="nb">}</span>s N. and <span class="nb">{</span>Vega-Mart<span class="nb">{</span><span class="k">\&#39;\i</span><span class="nb">}</span>nez<span class="nb">}</span>, Cristian A. and <span class="nb">{</span>Cora<span class="nb">}</span>, Sof<span class="nb">{</span><span class="k">\&#39;\i</span><span class="nb">}</span>a A.<span class="nb">}</span>,
+        title = &quot;<span class="nb">{</span>ROGER: Reconstructing orbits of galaxies in extreme regions using machine learning techniques<span class="nb">}</span>&quot;,
+      journal = <span class="nb">{</span><span class="k">\mnras</span><span class="nb">}</span>,
+     keywords = <span class="nb">{</span>methods: analytical, methods: numerical, galaxies: clusters: general, galaxies: kinematics and dynamics, Astrophysics - Astrophysics of Galaxies<span class="nb">}</span>,
+         year = 2021,
+        month = jan,
+       volume = <span class="nb">{</span>500<span class="nb">}</span>,
+       number = <span class="nb">{</span>2<span class="nb">}</span>,
+        pages = <span class="nb">{</span>1784-1794<span class="nb">}</span>,
+          doi = <span class="nb">{</span>10.1093/mnras/staa3339<span class="nb">}</span>,
+archivePrefix = <span class="nb">{</span>arXiv<span class="nb">}</span>,
+       eprint = <span class="nb">{</span>2010.11959<span class="nb">}</span>,
+ primaryClass = <span class="nb">{</span>astro-ph.GA<span class="nb">}</span>,
+       adsurl = <span class="nb">{</span>https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.1784D<span class="nb">}</span>,
+      adsnote = <span class="nb">{</span>Provided by the SAO/NASA Astrophysics Data System<span class="nb">}</span>
+<span class="nb">}</span>
+</pre></div>
+</div>
+<span style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; border-radius: 5px; display: inline-block;">
+A lot of people is already using pyROGER, you can check the [Papers here!](https://scixplorer.org/abs/2021MNRAS.500.1784D/citations?p=1)
+</span></section>
 </section>
 <section id="pyroger-documentation">
 <h1>pyROGER documentation<a class="headerlink" href="#pyroger-documentation" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pyROGER.html">pyROGER package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pyROGER.html#pyroger-roger">pyROGER.roger</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyROGER.html#module-pyROGER.models">pyROGER.models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyROGER.html#datasets">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html">pyROGER.roger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html#module-pyROGER.models">pyROGER.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyROGER.html#pyROGER.models.list_saved_models"><code class="docutils literal notranslate"><span class="pre">list_saved_models()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pyROGER.html#datasets">Datasets</a></li>
 </ul>
 </div>
 </section>
@@ -126,7 +179,7 @@ of galaxies around clusters.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pyROGER.html" class="btn btn-neutral float-right" title="pyROGER package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pyROGER.html" class="btn btn-neutral float-right" title="pyROGER.roger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
