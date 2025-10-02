@@ -43,7 +43,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">pyROGER.roger</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyROGER.roger</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pyROGER.roger.RogerModel"><code class="docutils literal notranslate"><span class="pre">RogerModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.x_dataset"><code class="docutils literal notranslate"><span class="pre">RogerModel.x_dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.y_dataset"><code class="docutils literal notranslate"><span class="pre">RogerModel.y_dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.ml_models"><code class="docutils literal notranslate"><span class="pre">RogerModel.ml_models</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.train_percentage"><code class="docutils literal notranslate"><span class="pre">RogerModel.train_percentage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.split_seed"><code class="docutils literal notranslate"><span class="pre">RogerModel.split_seed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.comments"><code class="docutils literal notranslate"><span class="pre">RogerModel.comments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.split"><code class="docutils literal notranslate"><span class="pre">RogerModel.split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.train"><code class="docutils literal notranslate"><span class="pre">RogerModel.train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.predict"><code class="docutils literal notranslate"><span class="pre">RogerModel.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.confusion_matrix"><code class="docutils literal notranslate"><span class="pre">RogerModel.confusion_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.predict_class"><code class="docutils literal notranslate"><span class="pre">RogerModel.predict_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyROGER.roger.RogerModel.predict_prob"><code class="docutils literal notranslate"><span class="pre">RogerModel.predict_prob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">RogerModel.split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">RogerModel.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#module-pyROGER.models">pyROGER.models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pyROGER.models.list_saved_models"><code class="docutils literal notranslate"><span class="pre">list_saved_models()</span></code></a></li>
 </ul>
@@ -75,17 +94,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pyroger-roger">
-<h1>pyROGER.roger<a class="headerlink" href="#pyroger-roger" title="Link to this heading"></a></h1>
+  <section id="module-pyROGER.roger">
+<span id="pyroger-roger"></span><h1>pyROGER.roger<a class="headerlink" href="#module-pyROGER.roger" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyROGER.roger.</span></span><span class="sig-name descname"><span class="pre">RogerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[KNeighborsClassifier(n_neighbors=63),</span> <span class="pre">RandomForestClassifier(max_depth=2,</span> <span class="pre">random_state=0),</span> <span class="pre">SVC(probability=True)]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CL',</span> <span class="pre">'RIN',</span> <span class="pre">'BS',</span> <span class="pre">'IN',</span> <span class="pre">'ITL']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyROGER.roger.</span></span><span class="sig-name descname"><span class="pre">RogerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[KNeighborsClassifier(n_neighbors=63),</span> <span class="pre">RandomForestClassifier(max_depth=2,</span> <span class="pre">random_state=0),</span> <span class="pre">SVC(probability=True)]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CL',</span> <span class="pre">'RIN',</span> <span class="pre">'BS',</span> <span class="pre">'IN',</span> <span class="pre">'ITL']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Main class of pyROGER. This object contains all the information
 of the classification.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">x_dataset</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.x_dataset">
+<span class="sig-name descname"><span class="pre">x_dataset</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.x_dataset" title="Link to this definition"></a></dt>
 <dd><p>Numpy array containing the features used for the classification.
 Usually these will be the relative velocity normalized to the velocity
 dispersion and the normalized radii.</p>
@@ -97,8 +116,8 @@ dispersion and the normalized radii.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">y_dataset</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.y_dataset">
+<span class="sig-name descname"><span class="pre">y_dataset</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.y_dataset" title="Link to this definition"></a></dt>
 <dd><p>Numpy array containing the real classes of the galaxies. Usually these
 are cluster, recent infalling, backsplash, infalling and interloper
 galaxies.</p>
@@ -110,8 +129,8 @@ galaxies.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ml_models</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.ml_models">
+<span class="sig-name descname"><span class="pre">ml_models</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.ml_models" title="Link to this definition"></a></dt>
 <dd><p>List with the machine learning methods that will be used. The default
 methods are KNN, random forest and SVM.</p>
 <dl class="field-list simple">
@@ -122,8 +141,8 @@ methods are KNN, random forest and SVM.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">train_percentage</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.train_percentage">
+<span class="sig-name descname"><span class="pre">train_percentage</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.train_percentage" title="Link to this definition"></a></dt>
 <dd><p>Float between 0 and 1 representing the percentage of observations that
 will be used for training.</p>
 <dl class="field-list simple">
@@ -134,8 +153,8 @@ will be used for training.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">split_seed</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.split_seed">
+<span class="sig-name descname"><span class="pre">split_seed</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.split_seed" title="Link to this definition"></a></dt>
 <dd><p>Random seed used for randomly splitting the data. Default = None</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -145,8 +164,8 @@ will be used for training.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">comments</span></span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#pyROGER.roger.RogerModel.comments" title="Link to this definition"></a></dt>
 <dd><p>String adding information for the trained model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -156,28 +175,28 @@ will be used for training.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel.split" title="Link to this definition"></a></dt>
 <dd><p>Split the data into training and testing set. It returns the indices
 of both sets. It will run when instantiating a RogerModel object.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel.train" title="Link to this definition"></a></dt>
 <dd><p>Train all the methods contained in ml_models.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyROGER.roger.RogerModel.predict" title="Link to this definition"></a></dt>
 <dd><p>Predict the class of the observation contained in data using the model
 number n_model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">confusion_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.,</span> <span class="pre">0.,</span> <span class="pre">0.,</span> <span class="pre">0.,</span> <span class="pre">0.])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.confusion_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.confusion_matrix">
+<span class="sig-name descname"><span class="pre">confusion_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.,</span> <span class="pre">0.,</span> <span class="pre">0.,</span> <span class="pre">0.,</span> <span class="pre">0.])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.confusion_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel.confusion_matrix" title="Link to this definition"></a></dt>
 <dd><p>Function for computing the confusion matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -200,8 +219,8 @@ or not. Default = False</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">predict_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.predict_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.predict_class">
+<span class="sig-name descname"><span class="pre">predict_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.predict_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel.predict_class" title="Link to this definition"></a></dt>
 <dd><p>Function for predicting the orbital class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -226,8 +245,8 @@ for the classification.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">predict_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.predict_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="pyROGER.roger.RogerModel.predict_prob">
+<span class="sig-name descname"><span class="pre">predict_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.predict_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyROGER.roger.RogerModel.predict_prob" title="Link to this definition"></a></dt>
 <dd><p>Function for predicting the orbital class probability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -252,8 +271,8 @@ for the classification.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
 <dd><p>Function for splitting the dataset into train and test set.
 It will run when instantiating a RogerModel object.</p>
 <dl class="field-list simple">
@@ -268,8 +287,8 @@ It will run when instantiating a RogerModel object.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_saved_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_saved_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyROGER/roger.html#RogerModel.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
 <dd><p>Function for training the machine learning methods.</p>
 </dd></dl>
 

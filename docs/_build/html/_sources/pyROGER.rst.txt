@@ -5,7 +5,6 @@ pyROGER.roger
    :members:
    :show-inheritance:
    :undoc-members:
-   :no-index:
 
 pyROGER.models 
 ---------------------
