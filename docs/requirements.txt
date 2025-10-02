@@ -1,5 +1,4 @@
-sphinx
-myst_parser
-sphinx-rtd-theme
-sphinx-autodoc-typehints
-sphinxcontrib-napoleon
+sphinx==8.2.3
+myst_parser==4.0.1
+sphinx-rtd-theme==3.0.2
+sphinx-autodoc-typehints==3.2.0
