@@ -1,4 +1,4 @@
-# pyROGER pacakage
+# pyROGER package
 [![Documentation Status](https://readthedocs.org/projects/pyroger/badge/?version=latest)](https://pyroger.readthedocs.io/en/latest/)
 
 Welcome to the pyROGER package, where you will be able to make an automatic dynamical classification
