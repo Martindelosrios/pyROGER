@@ -4,8 +4,31 @@ from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from joblib import load, dump
+from datetime import date
 
-
+today = date.today()
+if (today.day == 5) & (today.month == 6):
+    print('Today is the {} th aniversary of the epic Libertadores final won by River Plate against boca, for those who celebrate that day, congratulations (que distintos que somos)!!'.format(today.year - 2018) + 
+    '''
+⠀⠀⠀⣠⡾⠛⠶⠦⣤⣄⣀⣀⣀⣀⣀⣀⣀⣠⣤⠴⠶⡛⢷⣄⠀⠀⠀
+⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠈⠉⠉⢉⣭⣭⣥⣴⣶⣶⣿⣿⣦⡙⢷⣄⠀
+⣴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠝⣦
+⠘⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⡛⣛⣛⡛⠿⢿⣿⣿⣿⣿⣿⣿⠃⣰⠃
+⠀⢹⡄⠀⠀⠀⠀⠀⢀⣴⡾⠿⡃⣿⡟⣿⡆⣦⡙⢿⣿⣿⣿⠃⢀⡏⠀
+⠀⠘⣷⠀⠀⠀⠀⣰⡿⢋⣴⣿⡇⣿⡇⣿⡇⣿⣿⣆⠹⡿⠁⠀⣼⠃⠀
+⠀⠀⢿⠀⠀⠀⢰⣿⢡⣿⠋⢸⡇⣿⡇⣿⡇⣿⡏⣿⡆⠁⠀⠀⡿⠀⠀
+⠀⠀⢸⡀⠀⠀⢸⣿⢸⣿⠿⢿⡇⣿⡇⣿⡇⣿⡇⣿⡇⠀⠀⠀⡇⠀⠀
+⠀⠀⢸⡇⠀⢠⠈⣿⡜⢿⡆⢸⡇⣿⣷⣿⠇⣿⣷⡿⠁⠀⠀⢸⡇⠀⠀
+⠀⠀⠈⣇⢠⣿⣷⡘⢿⣮⡃⠸⠇⣿⡿⣷⡀⣿⡏⠀⠀⠀⠀⢸⠁⠀⠀
+⠀⠀⠀⢿⠘⣿⣿⣿⣦⣙⠻⠷⡆⣿⡇⠻⠗⠋⠀⠀⠀⠀⠀⡿⠀⠀⠀
+⠀⠀⠀⠸⣧⢹⣿⣿⣿⣿⣷⣶⣶⣤⡶⠂⠀⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀
+⠀⠀⠀⠀⠹⣆⢿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⣰⠏⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠹⣆⠻⣿⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⣠⠏⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠘⢷⡙⢿⣿⡟⠁⠀⠀⠀⠀⠀⢀⡼⠃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠛⢦⣍⠀⠀⠀⠀⠀⣀⡴⠛⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⢦⣤⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+'''
+    )
 class RogerModel:
     """
     Main class of pyROGER. This object contains all the information
