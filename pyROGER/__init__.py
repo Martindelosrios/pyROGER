@@ -1,7 +1,7 @@
 from datetime import date
 
 today = date.today()
-if (today.day == 8) & (today.month == 6):
+if (today.day == 8) & (today.month == 5):
     print('Today is the {} th aniversary of the epic Libertadores final won by River Plate against boca, for those who celebrate that day, congratulations (que distintos que somos)!!'.format(today.year - 2018) + 
     '''
 ⠀⠀⠀⣠⡾⠛⠶⠦⣤⣄⣀⣀⣀⣀⣀⣀⣀⣠⣤⠴⠶⡛⢷⣄⠀⠀⠀
