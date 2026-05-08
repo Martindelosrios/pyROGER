@@ -23,4 +23,6 @@ if (today.day == 8) & (today.month == 6):
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⢦⣤⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 '''
     )
+else:
+    print('Loading ROGER...')
 
